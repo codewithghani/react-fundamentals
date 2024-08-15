@@ -1,13 +1,11 @@
 import "./App.css";
-// import Message from "./components/Message";
-import ListGroup from "./components/ListGroup";
+
+import Welcome from "./components/Welcome";
 
 function App() {
   return (
     <div>
-      <ListGroup category="Cities">
-        <h2>My Favourite Cities</h2>
-      </ListGroup>
+      <Welcome />
     </div>
   );
 }
