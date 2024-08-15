@@ -5,7 +5,10 @@ import ListGroup from "./components/ListGroup";
 function App() {
   return (
     <div>
-      <ListGroup />
+      <ListGroup category="Cities">
+        {" "}
+        <h2>My Favourite Cities</h2>
+      </ListGroup>
     </div>
   );
 }
