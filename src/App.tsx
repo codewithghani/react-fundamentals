@@ -1,10 +1,11 @@
 import "./App.css";
-import Counter from "./components/Counter";
+import ClassClick from "./components/ClassClick";
+import FunctionClick from "./components/FunctionClick";
 
 function App() {
   return (
     <div>
-      <Counter />
+      <ClassClick />
     </div>
   );
 }
