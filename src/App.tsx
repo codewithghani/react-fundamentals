@@ -1,4 +1,5 @@
 import "./App.css";
+import Alert from "./components/Alert";
 import ListGroup from "./components/ListGroup";
 // import NameList from "./components/NameList";
 // import Style from "./components/Style"; /* using of style sheet  */
@@ -6,25 +7,11 @@ import ListGroup from "./components/ListGroup";
 // import ParentComponent from "./components/ParentComponent";
 
 function App() {
-  const Cities = ["Lahore", "Karachi", "Islamabad", "Mailsi"];
-  const Countries = ["Pak", "UK", "USA", "China"];
-  const handleSelectedItem = (item: string) => {
-    console.log(item);
-  };
   return (
     <div>
-      <ListGroup
-        items={Cities}
-        heading="Cities"
-        onSelectItem={handleSelectedItem}
-      />
-      <ListGroup
-        items={Countries}
-        heading="Countries"
-        onSelectItem={handleSelectedItem}
-      />
-
-      {/* <Style type={true} /> */}
+      <Alert>
+        Hello <span>World</span>
+      </Alert>
     </div>
   );
 }
