@@ -8,10 +8,21 @@ import ListGroup from "./components/ListGroup";
 function App() {
   const Cities = ["Lahore", "Karachi", "Islamabad", "Mailsi"];
   const Countries = ["Pak", "UK", "USA", "China"];
+  const handleSelectedItem = (item: string) => {
+    console.log(item);
+  };
   return (
     <div>
-      <ListGroup items={Cities} heading="Cities" />
-      <ListGroup items={Countries} heading="Countries" />
+      <ListGroup
+        items={Cities}
+        heading="Cities"
+        onSelectItem={handleSelectedItem}
+      />
+      <ListGroup
+        items={Countries}
+        heading="Countries"
+        onSelectItem={handleSelectedItem}
+      />
 
       {/* <Style type={true} /> */}
     </div>
