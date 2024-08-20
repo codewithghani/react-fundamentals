@@ -1,10 +1,11 @@
 import "./App.css";
-import ParentComponent from "./components/ParentComponent";
+import NameList from "./components/NameList";
+// import ParentComponent from "./components/ParentComponent";
 
 function App() {
   return (
     <div>
-      <ParentComponent />
+      <NameList />
     </div>
   );
 }
