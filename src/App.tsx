@@ -1,4 +1,6 @@
+import { useState } from "react";
 import "./App.css";
+import Alert from "./components/Alert";
 // import Alert from "./components/Alert";
 import ButtonRedefined from "./components/Button";
 // import ListGroup from "./components/ListGroup";
@@ -8,34 +10,18 @@ import ButtonRedefined from "./components/Button";
 // import ParentComponent from "./components/ParentComponent";
 
 function App() {
+  const handleClick = () => {
+    setAlertVisible(true);
+  };
+  const handleClose = () => {
+    setAlertVisible(false);
+  };
+  const [alertVisible, setAlertVisible] = useState(false);
   return (
     <div>
-      <ButtonRedefined color="primary" onClick={() => console.log("clicked")}>
+      {alertVisible && <Alert onClose={handleClose} />}
+      <ButtonRedefined color="primary" onClick={handleClick}>
         This is primary button
-      </ButtonRedefined>
-      <ButtonRedefined color="secondary" onClick={() => console.log("clicked")}>
-        This is secondary button
-      </ButtonRedefined>
-      <ButtonRedefined color="success" onClick={() => console.log("clicked")}>
-        This is success button
-      </ButtonRedefined>
-      <ButtonRedefined color="danger" onClick={() => console.log("clicked")}>
-        This is danger button
-      </ButtonRedefined>
-      <ButtonRedefined color="warning" onClick={() => console.log("clicked")}>
-        This is warning button
-      </ButtonRedefined>
-      <ButtonRedefined color="info" onClick={() => console.log("clicked")}>
-        This is info button
-      </ButtonRedefined>
-      <ButtonRedefined color="light" onClick={() => console.log("clicked")}>
-        This is light button
-      </ButtonRedefined>
-      <ButtonRedefined color="dark" onClick={() => console.log("clicked")}>
-        This is dark button
-      </ButtonRedefined>
-      <ButtonRedefined color="link" onClick={() => console.log("clicked")}>
-        This is link button
       </ButtonRedefined>
     </div>
   );
