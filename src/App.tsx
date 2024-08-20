@@ -1,11 +1,13 @@
 import "./App.css";
-import NameList from "./components/NameList";
+// import NameList from "./components/NameList";
+import Style from "./components/Style"; /* using of style sheet  */
+
 // import ParentComponent from "./components/ParentComponent";
 
 function App() {
   return (
     <div>
-      <NameList />
+      <Style type={true} />
     </div>
   );
 }
