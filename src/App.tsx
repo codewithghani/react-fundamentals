@@ -3,7 +3,8 @@ import "./App.css";
 // import Alert from "./components/Alert";
 // import Alert from "./components/Alert";
 // import ButtonRedefined from "./components/Button";
-import Like from "./components/Like/Like";
+// import Like from "./components/Like/Like";
+import UpdatingObjects from "./components/UpdatingObjects";
 // import ListGroup from "./components/ListGroup";
 // import NameList from "./components/NameList";
 // import Style from "./components/Style"; /* using of style sheet  */
@@ -13,12 +14,7 @@ import Like from "./components/Like/Like";
 function App() {
   return (
     <div>
-      <Like
-        size={40}
-        onClick={() => {
-          console.log("clicked");
-        }}
-      />
+      <UpdatingObjects />
     </div>
   );
 }
