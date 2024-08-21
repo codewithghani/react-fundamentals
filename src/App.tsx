@@ -1,8 +1,9 @@
-import { useState } from "react";
+// import { useState } from "react";
 import "./App.css";
-import Alert from "./components/Alert";
 // import Alert from "./components/Alert";
-import ButtonRedefined from "./components/Button";
+// import Alert from "./components/Alert";
+// import ButtonRedefined from "./components/Button";
+import Like from "./components/Like/Like";
 // import ListGroup from "./components/ListGroup";
 // import NameList from "./components/NameList";
 // import Style from "./components/Style"; /* using of style sheet  */
@@ -10,19 +11,14 @@ import ButtonRedefined from "./components/Button";
 // import ParentComponent from "./components/ParentComponent";
 
 function App() {
-  const handleClick = () => {
-    setAlertVisible(true);
-  };
-  const handleClose = () => {
-    setAlertVisible(false);
-  };
-  const [alertVisible, setAlertVisible] = useState(false);
   return (
     <div>
-      {alertVisible && <Alert onClose={handleClose} />}
-      <ButtonRedefined color="primary" onClick={handleClick}>
-        This is primary button
-      </ButtonRedefined>
+      <Like
+        size={40}
+        onClick={() => {
+          console.log("clicked");
+        }}
+      />
     </div>
   );
 }
