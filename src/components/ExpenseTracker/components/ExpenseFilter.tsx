@@ -1,24 +1,24 @@
-interface Expense {
-  id: number;
-  description: string;
-  expense: number;
-  category: string;
-}
+import categories from "../categories";
 interface Props {
-  expenses: Expense[];
   onSelected: (cat: string) => void;
 }
-const ExpenseFilter = ({ expenses, onSelected }: Props) => {
+const ExpenseFilter = ({ onSelected }: Props) => {
   return (
     <select
       className="form-select mb-3"
       onChange={(event) => onSelected(event.target.value)}
     >
-      <option selected value="all">
+      <option className="text-center text-capitalize" selected value="all">
         All
       </option>
-      {expenses.map((expnse) => (
-        <option value={expnse.category}>{expnse.category}</option>
+      {categories.map((category) => (
+        <option
+          className="text-center text-capitalize"
+          key={category}
+          value={category}
+        >
+          {category}
+        </option>
       ))}
     </select>
   );

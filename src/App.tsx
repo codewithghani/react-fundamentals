@@ -21,38 +21,39 @@ import ExpenseList from "./components/ExpenseTracker/components/ExpenseList";
 // import ParentComponent from "./components/ParentComponent";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ExpenseFilter from "./components/ExpenseTracker/components/ExpenseFilter";
-
+import ExpenseForm from "./components/ExpenseTracker/components/ExpenseForm";
+// import categories from "./components/ExpenseTracker/categories";
 function App() {
   const [expenses, setExpense] = useState([
     {
       id: 1,
       description: "spent on family",
       expense: 50,
-      category: "Family",
+      category: "utilities",
     },
     {
       id: 2,
       description: "spent on friends",
       expense: 10,
-      category: "Friends",
+      category: "shopping",
     },
     {
       id: 3,
       description: "spent on Gfs",
       expense: 500,
-      category: "Social",
+      category: "entertainment",
     },
     {
       id: 4,
       description: "spent on Gfs",
       expense: 500,
-      category: "Social",
+      category: "shopping",
     },
     {
       id: 5,
       description: "spent on Gfs",
       expense: 500,
-      category: "Social",
+      category: "grocery",
     },
   ]);
   const [selectedCat, setSelectedCat] = useState("");
@@ -69,7 +70,18 @@ function App() {
 
   return (
     <div>
-      <ExpenseFilter expenses={expenses} onSelected={handleSelected} />
+      <ExpenseForm
+        onSubmit={(expense) =>
+          setExpense([
+            ...expenses,
+            {
+              ...expense,
+              id: expenses.length + 1,
+            },
+          ])
+        }
+      />
+      <ExpenseFilter onSelected={handleSelected} />
       <ExpenseList expenses={visibleExpense} onDelete={handleDelete} />
     </div>
   );
