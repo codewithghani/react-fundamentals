@@ -2,6 +2,7 @@ interface Expense {
   id: number;
   description: string;
   expense: number;
+  category: string;
 }
 interface Props {
   expenses: Expense[];
@@ -17,6 +18,7 @@ const ExpenseList = ({ expenses, onDelete }: Props) => {
           <th>ID</th>
           <th>Decription</th>
           <th>Expense</th>
+          <th>Cat</th>
           <th>Delete</th>
         </tr>
       </thead>
@@ -26,6 +28,7 @@ const ExpenseList = ({ expenses, onDelete }: Props) => {
             <td>{expense.id}</td>
             <td>{expense.description}</td>
             <td>{expense.expense}</td>
+            <td>{expense.category}</td>
             <td>
               <button
                 className="btn btn-outline-danger"
@@ -43,7 +46,7 @@ const ExpenseList = ({ expenses, onDelete }: Props) => {
             Total
           </th>
           <th>{expenses.reduce((acc, currVal) => acc + currVal.expense, 0)}</th>
-          <th></th>
+          <th colSpan={2}></th>
         </tr>
       </tfoot>
     </table>
