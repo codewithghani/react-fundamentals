@@ -10,7 +10,7 @@ const schema = z.object({
     .min(3, { message: "Name must be atleast 3 characters long." }),
   age: z
     .number({ invalid_type_error: "Age field is required" })
-    .min(18, { message: "You are under age" }),
+    .min(18, { message: "You are under age!!" }),
 });
 
 type FormData = z.infer<typeof schema>;
