@@ -30,101 +30,104 @@ const LogInForm = () => {
     formState: { errors },
   } = useForm<LogInFormData>({ resolver: zodResolver(schema) });
   return (
-    <form
-      className="p-5 border-1 rounded border-dark bg-body-tertiary"
-      onSubmit={handleSubmit((data) => {
-        console.log(data);
-        reset();
-      })}
-    >
-      <h2 className="text-center text-primary">
-        {" "}
-        Sign Up Form - Code with Ghani
-      </h2>
-      <div className="mb-3">
-        <label htmlFor="firstName" className="form-label">
-          First Name
-        </label>
-        <input
-          {...register("firstName")}
-          id="firstName"
-          type="text"
-          className="form-control"
-        />
-        {errors.firstName && (
-          <p className="text-danger">{errors.firstName.message}</p>
-        )}
-      </div>
-      <div className="mb-3">
-        <label htmlFor="lastName" className="form-label">
-          {" "}
-          Last Name
-        </label>
-        <input
-          {...register("lastName")}
-          id="lastName"
-          type="text"
-          className="form-control"
-        />
-        {errors.lastName && (
-          <p className="text-danger">{errors.lastName.message}</p>
-        )}
-      </div>
-      <div className="mb-3">
-        <label htmlFor="userName" className="form-label">
-          {" "}
-          User Name
-        </label>
-        <input
-          {...register("userName")}
-          id="userName"
-          type="text"
-          className="form-control"
-        />
-        {errors.userName && (
-          <p className="text-danger">{errors.userName.message}</p>
-        )}
-      </div>
-      <div className="mb-3">
-        <label htmlFor="email" className="form-label">
-          Email Address
-        </label>
-        <input
-          {...register("email")}
-          id="email"
-          type="text"
-          className="form-control"
-        />
-        {errors.email && <p className="text-danger">{errors.email.message}</p>}
-      </div>
-      <div className="mb-3">
-        <label htmlFor="password" className="form-label">
-          Password
-        </label>
-        <input
-          {...register("password")}
-          id="password"
-          type="password"
-          className="form-control"
-        />
-        {errors.password && (
-          <p className="text-danger">{errors.password.message}</p>
-        )}
-      </div>
-      <button
-        type="submit"
-        className="btn btn-outline-primary align-middle m-lg-5"
+    <div className="container w-50 pt-5">
+      <form
+        className="p-5 border-1 rounded border-dark bg-body-tertiary "
+        onSubmit={handleSubmit((data) => {
+          console.log(data);
+          reset();
+        })}
       >
-        Register
-      </button>
-      <button
-        type="button"
-        className="btn btn-outline-primary align-middle m-lg-5"
-        onClick={() => reset()}
-      >
-        Clear Data
-      </button>
-    </form>
+        <h2 className="text-center text-primary">
+          {" "}
+          Sign Up Form - Code with Ghani
+        </h2>
+        <div className="mb-3">
+          <label htmlFor="firstName" className="form-label">
+            First Name
+          </label>
+          <input
+            {...register("firstName")}
+            id="firstName"
+            type="text"
+            className="form-control"
+          />
+          {errors.firstName && (
+            <p className="text-danger">{errors.firstName.message}</p>
+          )}
+        </div>
+        <div className="mb-3">
+          <label htmlFor="lastName" className="form-label">
+            {" "}
+            Last Name
+          </label>
+          <input
+            {...register("lastName")}
+            id="lastName"
+            type="text"
+            className="form-control"
+          />
+          {errors.lastName && (
+            <p className="text-danger">{errors.lastName.message}</p>
+          )}
+        </div>
+        <div className="mb-3">
+          <label htmlFor="userName" className="form-label">
+            {" "}
+            User Name
+          </label>
+          <input
+            {...register("userName")}
+            id="userName"
+            type="text"
+            className="form-control"
+          />
+          {errors.userName && (
+            <p className="text-danger">{errors.userName.message}</p>
+          )}
+        </div>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            Email Address
+          </label>
+          <input
+            {...register("email")}
+            id="email"
+            type="text"
+            className="form-control"
+          />
+          {errors.email && (
+            <p className="text-danger">{errors.email.message}</p>
+          )}
+        </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
+          <input
+            {...register("password")}
+            id="password"
+            type="password"
+            className="form-control"
+          />
+          {errors.password && (
+            <p className="text-danger">{errors.password.message}</p>
+          )}
+        </div>
+        <div className="container d-flex justify-content-center">
+          <button type="submit" className="btn btn-outline-primary ">
+            Register
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline-primary ms-5"
+            onClick={() => reset()}
+          >
+            Clear Data
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
