@@ -32,7 +32,10 @@ const LogInForm = () => {
   return (
     <form
       className="p-5 border-1 rounded border-dark bg-body-tertiary"
-      onSubmit={handleSubmit((data) => console.log(data))}
+      onSubmit={handleSubmit((data) => {
+        console.log(data);
+        reset();
+      })}
     >
       <h2 className="text-center text-primary">
         {" "}
@@ -108,15 +111,18 @@ const LogInForm = () => {
           <p className="text-danger">{errors.password.message}</p>
         )}
       </div>
-      <button type="submit" className="btn btn-outline-primary align-middle">
+      <button
+        type="submit"
+        className="btn btn-outline-primary align-middle m-lg-5"
+      >
         Register
       </button>
       <button
         type="button"
-        className="btn btn-outline-primary align-middle"
+        className="btn btn-outline-primary align-middle m-lg-5"
         onClick={() => reset()}
       >
-        Clear Form
+        Clear Data
       </button>
     </form>
   );
