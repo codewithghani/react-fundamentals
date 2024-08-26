@@ -26,6 +26,7 @@ const LogInForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<LogInFormData>({ resolver: zodResolver(schema) });
   return (
@@ -109,6 +110,13 @@ const LogInForm = () => {
       </div>
       <button type="submit" className="btn btn-outline-primary align-middle">
         Register
+      </button>
+      <button
+        type="button"
+        className="btn btn-outline-primary align-middle"
+        onClick={() => reset()}
+      >
+        Clear Form
       </button>
     </form>
   );
