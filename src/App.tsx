@@ -24,24 +24,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import ExpenseFilter from "./components/ExpenseTracker/components/ExpenseFilter";
 // import ExpenseForm from "./components/ExpenseTracker/components/ExpenseForm";
 import ProductList from "./components/ProductList";
+import Posts from "./components/Posts";
 // import categories from "./components/ExpenseTracker/categories";
 function App() {
   const [category, setCategory] = useState("");
   return (
     <div>
-      <select
-        className="form-select"
-        onChange={(event) => setCategory(event.target.value)}
-      >
-        <option value="" className="text-center text-capitalize"></option>
-        <option value="clothing" className="text-center text-capitalize">
-          Clothing
-        </option>
-        <option value="shoes" className="text-center text-capitalize">
-          Shoes
-        </option>
-      </select>
-      <ProductList category={category} />
+      <Posts />
     </div>
   );
 }
