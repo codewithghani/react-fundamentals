@@ -2,7 +2,7 @@
 // import { useState } from "react";
 import { useState } from "react";
 import "./App.css";
-import ExpenseList from "./components/ExpenseTracker/components/ExpenseList";
+// import ExpenseList from "./components/ExpenseTracker/components/ExpenseList";
 // import ExpandableText from "./components/ExpandableText";
 // import Form from "./components/Form";
 // import Alert from "./components/Alert";
@@ -19,72 +19,29 @@ import ExpenseList from "./components/ExpenseTracker/components/ExpenseList";
 // import Style from "./components/Style"; /* using of style sheet  */
 
 // import ParentComponent from "./components/ParentComponent";
-import LogInForm from "./components/ExpenseTracker/components/LogInForm";
+// import LogInForm from "./components/ExpenseTracker/components/LogInForm";
 import "bootstrap/dist/css/bootstrap.min.css";
-import ExpenseFilter from "./components/ExpenseTracker/components/ExpenseFilter";
-import ExpenseForm from "./components/ExpenseTracker/components/ExpenseForm";
+// import ExpenseFilter from "./components/ExpenseTracker/components/ExpenseFilter";
+// import ExpenseForm from "./components/ExpenseTracker/components/ExpenseForm";
+import ProductList from "./components/ProductList";
 // import categories from "./components/ExpenseTracker/categories";
 function App() {
-  const [expenses, setExpense] = useState([
-    {
-      id: 1,
-      description: "spent on family",
-      expense: 50,
-      category: "utilities",
-    },
-    {
-      id: 2,
-      description: "spent on friends",
-      expense: 10,
-      category: "shopping",
-    },
-    {
-      id: 3,
-      description: "spent on Gfs",
-      expense: 500,
-      category: "entertainment",
-    },
-    {
-      id: 4,
-      description: "spent on Gfs",
-      expense: 500,
-      category: "shopping",
-    },
-    {
-      id: 5,
-      description: "spent on Gfs",
-      expense: 500,
-      category: "grocery",
-    },
-  ]);
-  const [selectedCat, setSelectedCat] = useState("");
-  const handleDelete = (id: number) => {
-    setExpense(expenses.filter((expense) => expense.id !== id));
-  };
-  const handleSelected = (cat: string) => {
-    setSelectedCat(cat);
-  };
-  const visibleExpense =
-    selectedCat && selectedCat !== "all"
-      ? expenses.filter((expense) => expense.category === selectedCat)
-      : expenses;
-
+  const [category, setCategory] = useState("");
   return (
     <div>
-      <LogInForm />
-      {/* <ExpenseForm
-        onSubmit={(expense) =>
-          setExpense([
-            ...expenses,
-            {
-              ...expense,
-              id: expenses.length + 1,
-            },
-          ])
-        }
-      />
-      <ExpenseFilter onSelected={handleSelected} />
-      <ExpenseList expenses={visibleExpense} onDelete={handleDelete} /> */}
+      <select
+        className="form-select"
+        onChange={(event) => setCategory(event.target.value)}
+      >
+        <option value="" className="text-center text-capitalize"></option>
+        <option value="clothing" className="text-center text-capitalize">
+          Clothing
+        </option>
+        <option value="shoes" className="text-center text-capitalize">
+          Shoes
+        </option>
+      </select>
+      <ProductList category={category} />
     </div>
   );
 }
