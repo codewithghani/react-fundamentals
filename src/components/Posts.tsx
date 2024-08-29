@@ -54,6 +54,20 @@ const Posts = () => {
         setPosts(originalPosts);
       });
   };
+  const handleUpdate = (post: PostsData) => {
+    const originalPosts = [...posts];
+    const updatedPost = { ...post, title: post.title + "@123" };
+    setPosts(posts.map((p) => (p.id === post.id ? updatedPost : p)));
+    axios
+      .patch(
+        "https://jsonplaceholder.typicode.com/post..s/" + post.id,
+        updatedPost
+      )
+      .catch((err) => {
+        setError(err.message);
+        setPosts(originalPosts);
+      });
+  };
   return (
     <div>
       <h2 className="container text-center bg-info p-5 text-white rounded">
@@ -81,14 +95,23 @@ const Posts = () => {
             <li key={post.id} className=" list-group-item p-5 mb-5">
               <div className="container d-flex justify-content-between ">
                 <h2 className="text-primary">{post.title}</h2>
-                <button
-                  type="button"
-                  className="btn btn-outline-danger"
-                  onClick={() => handleDelete(post.id)}
-                >
-                  {" "}
-                  Delete
-                </button>
+                <div>
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary mx-2"
+                    onClick={() => handleUpdate(post)}
+                  >
+                    Update
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-outline-danger"
+                    onClick={() => handleDelete(post.id)}
+                  >
+                    {" "}
+                    Delete
+                  </button>
+                </div>
               </div>
               <div className=" card-body mt-5">{post.body}</div>
             </li>
