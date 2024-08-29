@@ -60,7 +60,7 @@ const Posts = () => {
     setPosts(posts.map((p) => (p.id === post.id ? updatedPost : p)));
     axios
       .patch(
-        "https://jsonplaceholder.typicode.com/post..s/" + post.id,
+        "https://jsonplaceholder.typicode.com/posts/" + post.id,
         updatedPost
       )
       .catch((err) => {
