@@ -42,6 +42,18 @@ const Posts = () => {
         setPosts(originalPosts);
       });
   };
+  const handleAddPost = () => {
+    const originalPosts = [...posts];
+    const newPost = { id: 0, title: "My New Post", body: "lorem10" };
+    setPosts([newPost, ...posts]);
+    axios
+      .post("https://jsonplaceholder.typicode.com/posts", newPost)
+      .then(({ data: newPost }) => setPosts([newPost, ...posts]))
+      .catch((err) => {
+        setError(err.message);
+        setPosts(originalPosts);
+      });
+  };
   return (
     <div>
       <h2 className="container text-center bg-info p-5 text-white rounded">
@@ -56,6 +68,13 @@ const Posts = () => {
           <span className=" visually-hidden"> fetching data</span>{" "}
         </div>
       )}
+      <button
+        type="button"
+        className="btn btn-outline-primary mb-5"
+        onClick={handleAddPost}
+      >
+        Add Post
+      </button>
       <ul className=" list-group">
         {posts.map((post) => {
           return (
