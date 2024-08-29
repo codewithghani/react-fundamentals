@@ -8,8 +8,10 @@ interface PostsData {
 const Posts = () => {
   const [posts, setPosts] = useState<PostsData[]>([]);
   const [error, setError] = useState("");
+  const [isLoading, setLoading] = useState(false);
   useEffect(() => {
     const controller = new AbortController();
+    setLoading(true);
 
     const getUsers = async () => {
       try {
@@ -18,9 +20,11 @@ const Posts = () => {
           { signal: controller.signal }
         );
         setPosts(res.data);
+        setLoading(false);
       } catch (err) {
         if (err instanceof CanceledError) return;
         setError((err as AxiosError).message);
+        setLoading(false);
       }
     };
     getUsers();
@@ -35,6 +39,12 @@ const Posts = () => {
       </h2>
       {error && (
         <h2 className="text-danger text-center text-lg-center mt-5">{error}</h2>
+      )}
+      {isLoading && (
+        <div className="container d-flex justify-content-center align-items-center mt-5 mb-5">
+          {" "}
+          <span className="spinner-grow text-primary"></span>{" "}
+        </div>
       )}
       <p>
         {posts.map((post) => {
