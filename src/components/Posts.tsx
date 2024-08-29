@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 interface PostsData {
   id: number;
@@ -7,16 +7,28 @@ interface PostsData {
 }
 const Posts = () => {
   const [posts, setPosts] = useState<PostsData[]>([]);
+  const [error, setError] = useState("");
   useEffect(() => {
-    axios
-      .get<PostsData[]>("https://jsonplaceholder.typicode.com/posts")
-      .then((res) => setPosts(res.data));
+    const getUsers = async () => {
+      try {
+        const res = await axios.get<PostsData[]>(
+          "https://jsonplaceholder.typicode.com/posts"
+        );
+        setPosts(res.data);
+      } catch (err) {
+        setError((err as AxiosError).message);
+      }
+    };
+    getUsers();
   }, []);
   return (
     <div>
       <h2 className="container text-center bg-info p-5 text-white rounded">
         Posts from JSON Placeholder - Using Axios & UseEff Hook
       </h2>
+      {error && (
+        <h2 className="text-danger text-center text-lg-center mt-5">{error}</h2>
+      )}
       <p>
         {posts.map((post) => {
           return (
