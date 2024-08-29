@@ -32,6 +32,16 @@ const Posts = () => {
       controller.abort();
     };
   }, []);
+  const handleDelete = (id: number) => {
+    const originalPosts = [...posts];
+    setPosts(posts.filter((post) => post.id !== id));
+    axios
+      .delete("https://jsonplaceholder.typicode.com/posts/" + id)
+      .catch((err) => {
+        setError(err.message);
+        setPosts(originalPosts);
+      });
+  };
   return (
     <div>
       <h2 className="container text-center bg-info p-5 text-white rounded">
@@ -41,23 +51,31 @@ const Posts = () => {
         <h2 className="text-danger text-center text-lg-center mt-5">{error}</h2>
       )}
       {isLoading && (
-        <div className="container d-flex justify-content-center align-items-center mt-5 mb-5">
+        <div className="spinner-grow text-primary mx-auto mx-lg-auto">
           {" "}
-          <span className="spinner-grow text-primary"></span>{" "}
+          <span className=" visually-hidden"> fetching data</span>{" "}
         </div>
       )}
-      <p>
+      <ul className=" list-group">
         {posts.map((post) => {
           return (
-            <div className="container mb-3 bg-body-secondary border-1 rounded p-5">
-              <h5 className=" card-header card-text card-title text-primary mb-3">
-                {post.title.toLocaleUpperCase()}
-              </h5>
-              <p className="card-text"> {post.body}</p>
-            </div>
+            <li key={post.id} className=" list-group-item p-5 mb-5">
+              <div className="container d-flex justify-content-between ">
+                <h2 className="text-primary">{post.title}</h2>
+                <button
+                  type="button"
+                  className="btn btn-outline-danger"
+                  onClick={() => handleDelete(post.id)}
+                >
+                  {" "}
+                  Delete
+                </button>
+              </div>
+              <div className=" card-body mt-5">{post.body}</div>
+            </li>
           );
         })}
-      </p>
+      </ul>
     </div>
   );
 };
