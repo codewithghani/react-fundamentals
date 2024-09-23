@@ -1,5 +1,6 @@
-import axios, { AxiosError, CanceledError } from "axios";
 import { useEffect, useState } from "react";
+import { AxiosError } from "axios";
+import apiClient, { CanceledError } from "../services/apiClient";
 interface PostsData {
   id: number;
   title: string;
@@ -15,10 +16,9 @@ const Posts = () => {
 
     const getUsers = async () => {
       try {
-        const res = await axios.get<PostsData[]>(
-          "https://jsonplaceholder.typicode.com/posts",
-          { signal: controller.signal }
-        );
+        const res = await apiClient.get<PostsData[]>("/posts", {
+          signal: controller.signal,
+        });
         setPosts(res.data);
         setLoading(false);
       } catch (err) {
@@ -35,19 +35,17 @@ const Posts = () => {
   const handleDelete = (id: number) => {
     const originalPosts = [...posts];
     setPosts(posts.filter((post) => post.id !== id));
-    axios
-      .delete("https://jsonplaceholder.typicode.com/posts/" + id)
-      .catch((err) => {
-        setError(err.message);
-        setPosts(originalPosts);
-      });
+    apiClient.delete("/posts/" + id).catch((err) => {
+      setError(err.message);
+      setPosts(originalPosts);
+    });
   };
   const handleAddPost = () => {
     const originalPosts = [...posts];
     const newPost = { id: 0, title: "My New Post", body: "lorem10" };
     setPosts([newPost, ...posts]);
-    axios
-      .post("https://jsonplaceholder.typicode.com/posts", newPost)
+    apiClient
+      .post("/posts", newPost)
       .then(({ data: newPost }) => setPosts([newPost, ...posts]))
       .catch((err) => {
         setError(err.message);
@@ -58,15 +56,10 @@ const Posts = () => {
     const originalPosts = [...posts];
     const updatedPost = { ...post, title: post.title + "@123" };
     setPosts(posts.map((p) => (p.id === post.id ? updatedPost : p)));
-    axios
-      .patch(
-        "https://jsonplaceholder.typicode.com/posts/" + post.id,
-        updatedPost
-      )
-      .catch((err) => {
-        setError(err.message);
-        setPosts(originalPosts);
-      });
+    apiClient.patch("/posts/" + post.id, updatedPost).catch((err) => {
+      setError(err.message);
+      setPosts(originalPosts);
+    });
   };
   return (
     <div>
