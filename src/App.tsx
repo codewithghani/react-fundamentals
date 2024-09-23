@@ -1,6 +1,6 @@
 // import { useState } from "react";
 // import { useState } from "react";
-import { useState } from "react";
+
 import "./App.css";
 // import ExpenseList from "./components/ExpenseTracker/components/ExpenseList";
 // import ExpandableText from "./components/ExpandableText";
@@ -23,11 +23,9 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import ExpenseFilter from "./components/ExpenseTracker/components/ExpenseFilter";
 // import ExpenseForm from "./components/ExpenseTracker/components/ExpenseForm";
-import ProductList from "./components/ProductList";
 import Posts from "./components/Posts";
 // import categories from "./components/ExpenseTracker/categories";
 function App() {
-  const [category, setCategory] = useState("");
   return (
     <div>
       <Posts />
