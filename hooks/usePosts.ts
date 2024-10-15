@@ -7,14 +7,14 @@ interface PostsData {
   body: string;
 }
 const usePosts = () => {
-  const fetchToDos = async () => {
+  const fetchPosts = async () => {
     const res = await apiClient.get<PostsData[]>("/posts");
 
     return res.data;
   };
   return useQuery<PostsData[], Error>({
     queryKey: ["posts"],
-    queryFn: fetchToDos,
+    queryFn: fetchPosts,
   });
 };
 
