@@ -2,7 +2,6 @@
 using the `apiClient.get` method. The response data is expected to be an array of objects that
 match the `ToDosData` interface, which includes properties like `id`, `title`, and `completed`.
 The response is stored in the `res` variable after the request is completed. */
-import React from "react";
 import apiClient from "../src/services/apiClient";
 import { useQuery } from "@tanstack/react-query";
 interface ToDosData {
@@ -17,7 +16,7 @@ const useTodos = () => {
     return res.data;
   };
   return useQuery<ToDosData[], Error>({
-    queryKey: ["posts"],
+    queryKey: ["todos"],
     queryFn: fetchToDos,
   });
 };
