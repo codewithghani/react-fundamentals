@@ -1,12 +1,25 @@
 import useTodos from "../../../hooks/useTodos";
-import { Checkbox, ListItem, Text, UnorderedList } from "@chakra-ui/react";
+import {
+  Checkbox,
+  Heading,
+  ListItem,
+  Text,
+  UnorderedList,
+} from "@chakra-ui/react";
 const Todos = () => {
   const { data: todos, isLoading, error } = useTodos();
   return (
     <div>
-      <h2 className="container text-center bg-info p-5 text-white rounded">
-        Todos from JSONPlaceholder - Using React Query
-      </h2>
+      <Heading
+        className="container text-center bg-info p-5 text-white rounded"
+        display={"flex"}
+        justifyContent={"center"}
+      >
+        {`Todos - Using  `}
+        <Text color="grey" as={"i"}>
+          tanstackQuery
+        </Text>
+      </Heading>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
       {todos && (
@@ -30,11 +43,17 @@ const Todos = () => {
                 </Checkbox>
               )}
               {todo.completed ? (
-                <Text marginLeft={2} textDecorationLine={"line-through"}>
+                <Text
+                  marginLeft={2}
+                  textDecorationLine={"line-through"}
+                  alignSelf={"center"}
+                >
                   {todo.title}
                 </Text>
               ) : (
-                <Text marginLeft={2}>{todo.title}</Text>
+                <Text marginLeft={2} alignSelf={"center"}>
+                  {todo.title}
+                </Text>
               )}
             </ListItem>
           ))}
