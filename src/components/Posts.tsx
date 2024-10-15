@@ -7,10 +7,10 @@ interface PostsData {
 }
 const Posts = () => {
   const fetchToDos = async () => {
-    const res = await apiClient.get<PostsData[]>("/posts");
+    const res = await apiClient.get<PostsData[]>("/postmms");
     return res.data;
   };
-  const { data: todos } = useQuery({
+  const { data: todos, error } = useQuery<PostsData[], Error>({
     queryKey: ["posts"],
     queryFn: fetchToDos,
   });
@@ -44,11 +44,13 @@ const Posts = () => {
   //     setPosts(originalPosts);
   //   });
   // };
+
   return (
     <div>
       <h2 className="container text-center bg-info p-5 text-white rounded">
         Posts from JSON Placeholder - Using Axios & UseEff Hook
       </h2>
+      {error && <h3>{error.message}</h3>}
 
       <ul className=" list-group">
         {todos?.map((post) => {
