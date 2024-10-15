@@ -1,19 +1,8 @@
-import apiClient from "../services/apiClient";
-import { useQuery } from "@tanstack/react-query";
-interface PostsData {
-  id: number;
-  title: string;
-  body: string;
-}
+import { Spinner } from "@chakra-ui/react";
+
+import usePosts from "../../hooks/usePosts";
 const Posts = () => {
-  const fetchToDos = async () => {
-    const res = await apiClient.get<PostsData[]>("/postmms");
-    return res.data;
-  };
-  const { data: todos, error } = useQuery<PostsData[], Error>({
-    queryKey: ["posts"],
-    queryFn: fetchToDos,
-  });
+  const { data: todos, error, isLoading } = usePosts();
 
   // const handleDelete = (id: number) => {
   //   const originalPosts = [...posts];
@@ -50,6 +39,15 @@ const Posts = () => {
       <h2 className="container text-center bg-info p-5 text-white rounded">
         Posts from JSON Placeholder - Using Axios & UseEff Hook
       </h2>
+      {isLoading && (
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+      )}
       {error && <h3>{error.message}</h3>}
 
       <ul className=" list-group">
