@@ -1,7 +1,6 @@
 import useTodos from "../../../hooks/useTodos";
 import { Heading, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { MdPendingActions } from "react-icons/md";
-import { FaBatteryFull } from "react-icons/fa";
 import { FaEnvelopeCircleCheck } from "react-icons/fa6";
 
 const Todos = () => {
@@ -48,7 +47,7 @@ const Todos = () => {
                   fontWeight={"bold"}
                   marginBottom={0}
                   paddingBottom={0}
-                  color={"green"}
+                  color={"grey"}
                 >
                   {todo.title}
                 </Text>
