@@ -1,11 +1,9 @@
 import useTodos from "../../../hooks/useTodos";
-import {
-  Checkbox,
-  Heading,
-  ListItem,
-  Text,
-  UnorderedList,
-} from "@chakra-ui/react";
+import { Heading, ListItem, Text, UnorderedList } from "@chakra-ui/react";
+import { MdPendingActions } from "react-icons/md";
+import { FaBatteryFull } from "react-icons/fa";
+import { FaEnvelopeCircleCheck } from "react-icons/fa6";
+
 const Todos = () => {
   const { data: todos, isLoading, error } = useTodos();
   return (
@@ -29,29 +27,42 @@ const Todos = () => {
               display={"flex"}
               justifyContent={"left"}
               alignItems={"center"}
+              alignContent={"center"}
+              justifyItems={"center"}
               key={todo.id}
               className="list-group-item"
             >
               {" "}
               {todo.completed ? (
-                <Checkbox colorScheme="green" defaultChecked color={"green"}>
-                  Completed
-                </Checkbox>
+                <FaEnvelopeCircleCheck size={35} fill="green" />
               ) : (
-                <Checkbox colorScheme="red" color={"red"}>
-                  Pending
-                </Checkbox>
+                <MdPendingActions size={35} fill="red" />
               )}
               {todo.completed ? (
                 <Text
                   marginLeft={2}
                   textDecorationLine={"line-through"}
                   alignSelf={"center"}
+                  fontSize={"large"}
+                  textTransform={"capitalize"}
+                  fontWeight={"bold"}
+                  marginBottom={0}
+                  paddingBottom={0}
+                  color={"green"}
                 >
                   {todo.title}
                 </Text>
               ) : (
-                <Text marginLeft={2} alignSelf={"center"}>
+                <Text
+                  marginLeft={2}
+                  alignSelf={"center"}
+                  fontSize={"large"}
+                  textTransform={"capitalize"}
+                  fontWeight={"bold"}
+                  marginBottom={0}
+                  paddingBottom={0}
+                  color={"red"}
+                >
                   {todo.title}
                 </Text>
               )}
