@@ -2,9 +2,12 @@ import useTodos from "../../../hooks/useTodos";
 import { Heading, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { MdPendingActions } from "react-icons/md";
 import { FaEnvelopeCircleCheck } from "react-icons/fa6";
+import { Select } from "@chakra-ui/react";
+import { useState } from "react";
 
 const Todos = () => {
-  const { data: todos, isLoading, error } = useTodos();
+  const [userId, setUserId] = useState<number>(0);
+  const { data: todos, isLoading, error } = useTodos(userId);
   return (
     <div>
       <Heading
@@ -17,6 +20,17 @@ const Todos = () => {
           tanstackQuery
         </Text>
       </Heading>
+      <Select
+        placeholder="Select User..."
+        marginBottom={10}
+        marginTop={10}
+        paddingLeft={5}
+        onChange={(event) => setUserId(parseInt(event.target.value))}
+      >
+        <option value="1">User 1</option>
+        <option value="2">User 2</option>
+        <option value="3">User 3</option>
+      </Select>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
       {todos && (

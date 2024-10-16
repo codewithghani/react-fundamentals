@@ -9,14 +9,18 @@ interface ToDosData {
   title: string;
   completed: boolean;
 }
-const useTodos = () => {
+const useTodos = (userID: number) => {
   const fetchToDos = async () => {
-    const res = await apiClient.get<ToDosData[]>("/todos");
+    const res = await apiClient.get<ToDosData[]>("/todos", {
+      params: {
+        userID,
+      },
+    });
 
     return res.data;
   };
   return useQuery<ToDosData[], Error>({
-    queryKey: ["todos"],
+    queryKey: userID ? ["users", userID, "todos"] : ["todos"],
     queryFn: fetchToDos,
   });
 };
