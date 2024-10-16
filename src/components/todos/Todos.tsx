@@ -1,13 +1,22 @@
 import useTodos from "../../../hooks/useTodos";
-import { Heading, ListItem, Text, UnorderedList } from "@chakra-ui/react";
+import {
+  Heading,
+  HStack,
+  ListItem,
+  Text,
+  UnorderedList,
+} from "@chakra-ui/react";
 import { MdPendingActions } from "react-icons/md";
 import { FaEnvelopeCircleCheck } from "react-icons/fa6";
 import { Select } from "@chakra-ui/react";
 import { useState } from "react";
+import { Button } from "@chakra-ui/react";
 
 const Todos = () => {
-  const [userId, setUserId] = useState<number>(0);
-  const { data: todos, isLoading, error } = useTodos(userId);
+  const pageSize = 10;
+  const [page, setPage] = useState(1);
+  // const [userId, setUserId] = useState<number>(0);
+  const { data: todos, isLoading, error } = useTodos({ page, pageSize });
   return (
     <div>
       <Heading
@@ -25,7 +34,6 @@ const Todos = () => {
         marginBottom={10}
         marginTop={10}
         paddingLeft={5}
-        onChange={(event) => setUserId(parseInt(event.target.value))}
       >
         <option value="1">User 1</option>
         <option value="2">User 2</option>
@@ -83,6 +91,18 @@ const Todos = () => {
           ))}
         </UnorderedList>
       )}
+      <HStack marginTop={2} justifyContent={"center"}>
+        <Button
+          onClick={() => setPage(page - 1)}
+          colorScheme="blue"
+          disabled={page === 1}
+        >
+          Previous
+        </Button>
+        <Button onClick={() => setPage(page + 1)} colorScheme="blue">
+          Next
+        </Button>
+      </HStack>
     </div>
   );
 };
