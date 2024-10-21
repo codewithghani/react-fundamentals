@@ -3,7 +3,7 @@ using the `apiClient.get` method. The response data is expected to be an array o
 match the `ToDosData` interface, which includes properties like `id`, `title`, and `completed`.
 The response is stored in the `res` variable after the request is completed. */
 import apiClient from "../src/services/apiClient";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 interface ToDosData {
   id: number;
   title: string;
@@ -11,26 +11,23 @@ interface ToDosData {
 }
 
 interface ToDosQuery {
-  page: number;
   pageSize: number;
 }
-const useTodos = (query: ToDosQuery) => {
-  const fetchToDos = async () => {
-    const res = await apiClient
-      .get<ToDosData[]>("/todos", {
-        params: {
-          _start: (query.page - 1) * query.pageSize,
-          _limit: query.pageSize,
-        },
-      })
-      .then((res) => res.data);
-    return res;
-  };
-  return useQuery<ToDosData[], Error>({
-    queryKey: ["todos", query],
-    queryFn: fetchToDos,
-    staleTime: 1000 * 60, // 1 minute
+const useTodos = (query: ToDosQuery) =>
+  useInfiniteQuery<ToDosData[], Error>({
+    queryKey: ["todos"],
+    queryFn: ({ pageParam = 1 }) =>
+      apiClient
+        .get<ToDosData[]>("/todos", {
+          params: {
+            _start: (pageParam - 1) * query.pageSize,
+            _limit: query.pageSize,
+          },
+        })
+        .then((res) => res.data),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.length > 0 ? allPages.length + 1 : undefined;
+    },
   });
-};
-
 export default useTodos;

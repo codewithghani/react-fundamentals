@@ -9,14 +9,19 @@ import {
 import { MdPendingActions } from "react-icons/md";
 import { FaEnvelopeCircleCheck } from "react-icons/fa6";
 import { Select } from "@chakra-ui/react";
-import { useState } from "react";
 import { Button } from "@chakra-ui/react";
+import React from "react";
 
 const Todos = () => {
   const pageSize = 10;
-  const [page, setPage] = useState(1);
   // const [userId, setUserId] = useState<number>(0);
-  const { data: todos, isLoading, error } = useTodos({ page, pageSize });
+  const {
+    data: pages,
+    isLoading,
+    error,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useTodos({ pageSize });
   return (
     <div>
       <Heading
@@ -41,66 +46,69 @@ const Todos = () => {
       </Select>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
-      {todos && (
+      {pages && (
         <UnorderedList className="list-group">
-          {todos.map((todo) => (
-            <ListItem
-              display={"flex"}
-              justifyContent={"left"}
-              alignItems={"center"}
-              alignContent={"center"}
-              justifyItems={"center"}
-              key={todo.id}
-              className="list-group-item"
-            >
-              {" "}
-              {todo.completed ? (
-                <FaEnvelopeCircleCheck size={35} fill="green" />
-              ) : (
-                <MdPendingActions size={35} fill="red" />
-              )}
-              {todo.completed ? (
-                <Text
-                  marginLeft={2}
-                  textDecorationLine={"line-through"}
-                  alignSelf={"center"}
-                  fontSize={"large"}
-                  textTransform={"capitalize"}
-                  fontWeight={"bold"}
-                  marginBottom={0}
-                  paddingBottom={0}
-                  color={"grey"}
-                >
-                  {todo.title}
-                </Text>
-              ) : (
-                <Text
-                  marginLeft={2}
-                  alignSelf={"center"}
-                  fontSize={"large"}
-                  textTransform={"capitalize"}
-                  fontWeight={"bold"}
-                  marginBottom={0}
-                  paddingBottom={0}
-                  color={"red"}
-                >
-                  {todo.title}
-                </Text>
-              )}
-            </ListItem>
+          {pages.pages.map((page) => (
+            <React.Fragment>
+              {page.map((todo) => {
+                return (
+                  <ListItem
+                    display={"flex"}
+                    justifyContent={"left"}
+                    alignItems={"center"}
+                    alignContent={"center"}
+                    justifyItems={"center"}
+                    key={todo.id}
+                    className="list-group-item"
+                  >
+                    {" "}
+                    {todo.completed ? (
+                      <FaEnvelopeCircleCheck size={35} fill="green" />
+                    ) : (
+                      <MdPendingActions size={35} fill="red" />
+                    )}
+                    {todo.completed ? (
+                      <Text
+                        marginLeft={2}
+                        textDecorationLine={"line-through"}
+                        alignSelf={"center"}
+                        fontSize={"large"}
+                        textTransform={"capitalize"}
+                        fontWeight={"bold"}
+                        marginBottom={0}
+                        paddingBottom={0}
+                        color={"grey"}
+                      >
+                        {todo.title}
+                      </Text>
+                    ) : (
+                      <Text
+                        marginLeft={2}
+                        alignSelf={"center"}
+                        fontSize={"large"}
+                        textTransform={"capitalize"}
+                        fontWeight={"bold"}
+                        marginBottom={0}
+                        paddingBottom={0}
+                        color={"red"}
+                      >
+                        {todo.title}
+                      </Text>
+                    )}
+                  </ListItem>
+                );
+              })}
+            </React.Fragment>
           ))}
         </UnorderedList>
       )}
       <HStack marginTop={2} justifyContent={"center"}>
         <Button
-          onClick={() => setPage(page - 1)}
+          onClick={() => fetchNextPage()}
           colorScheme="blue"
-          disabled={page === 1}
+          disabled={isFetchingNextPage}
         >
-          Previous
-        </Button>
-        <Button onClick={() => setPage(page + 1)} colorScheme="blue">
-          Next
+          Load More
         </Button>
       </HStack>
     </div>
