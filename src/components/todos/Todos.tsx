@@ -79,6 +79,7 @@ const Todos = () => {
               color={"grey"}
               fontSize={"large"}
               placeholder="Enter Your Todo Name..."
+              backgroundColor={"Background"}
             />
             <Button type="submit" colorScheme="teal">
               Submit
