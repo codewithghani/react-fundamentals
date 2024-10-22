@@ -1,5 +1,6 @@
 import useTodos from "../../../hooks/useTodos";
 import {
+  Container,
   Heading,
   HStack,
   Input,
@@ -12,12 +13,11 @@ import { FaEnvelopeCircleCheck } from "react-icons/fa6";
 import { Select } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import React from "react";
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-} from "@chakra-ui/react";
+import { FormLabel } from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+interface FormData {
+  title: string;
+}
 const Todos = () => {
   const pageSize = 10;
   // const [userId, setUserId] = useState<number>(0);
@@ -28,6 +28,8 @@ const Todos = () => {
     fetchNextPage,
     isFetchingNextPage,
   } = useTodos({ pageSize });
+  const { register, handleSubmit } = useForm<FormData>();
+
   return (
     <div>
       <Heading
@@ -50,33 +52,40 @@ const Todos = () => {
         <option value="2">User 2</option>
         <option value="3">User 3</option>
       </Select>
-      <FormControl
+      <Container
         marginBottom={3}
-        border="1px solid teal"
-        padding={3}
-        borderRadius={15}
-        backgroundColor={"white"}
+        border={"2px solid teal"}
+        paddingX={10}
+        paddingY={4}
+        width={"100%"}
+        borderRadius={5}
+        backgroundColor={"whitesmoke"}
       >
-        <FormLabel
-          color={"teal"}
-          fontSize={"x-large"}
-          fontWeight={"bold"}
-          textAlign={"center"}
-        >
-          Add Todo
-        </FormLabel>
-        <HStack>
-          <Input
-            type="text"
-            border={"1px solid teal"}
-            color={"green"}
-            fontSize={"large"}
-          />
-          <Button type="submit" colorScheme="teal">
-            Submit
-          </Button>
-        </HStack>
-      </FormControl>
+        <form onSubmit={handleSubmit((data) => console.log(data))}>
+          <FormLabel
+            color={"teal"}
+            fontSize={"x-large"}
+            fontWeight={"bold"}
+            textAlign={"center"}
+          >
+            Add Todo
+          </FormLabel>
+          <HStack>
+            <Input
+              {...register("title")}
+              id="title"
+              type="text"
+              border={"1px solid teal"}
+              color={"grey"}
+              fontSize={"large"}
+              placeholder="Enter Your Todo Name..."
+            />
+            <Button type="submit" colorScheme="teal">
+              Submit
+            </Button>
+          </HStack>
+        </form>
+      </Container>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
       {pages && (
