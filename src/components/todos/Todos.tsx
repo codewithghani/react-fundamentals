@@ -1,6 +1,5 @@
 import useTodos, { ToDosData } from "../../../hooks/useTodos";
 import {
-  Badge,
   Box,
   Container,
   Heading,
@@ -37,7 +36,7 @@ const Todos = () => {
 
   const addTodo = useMutation<ToDosData, Error, ToDosData>({
     mutationFn: (todo: ToDosData) =>
-      apiClient.post<ToDosData>("/todosxx", todo).then((res) => res.data),
+      apiClient.post<ToDosData>("/todos", todo).then((res) => res.data),
     onSuccess: (savedTodo) => {
       queryClient.setQueryData<ToDosData[]>(["todos"], (todos) => [
         savedTodo,
@@ -122,8 +121,12 @@ const Todos = () => {
               placeholder="Enter Your Todo Name..."
               backgroundColor={"Background"}
             />
-            <Button type="submit" colorScheme="teal">
-              Submit
+            <Button
+              type="submit"
+              colorScheme="teal"
+              disabled={addTodo.isPending}
+            >
+              {addTodo.isPending ? "Adding..." : "Add"}
             </Button>
           </HStack>
         </form>
