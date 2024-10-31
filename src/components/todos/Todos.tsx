@@ -1,5 +1,7 @@
-import useTodos from "../../../hooks/useTodos";
+import useTodos, { ToDosData } from "../../../hooks/useTodos";
 import {
+  Badge,
+  Box,
   Container,
   Heading,
   HStack,
@@ -15,10 +17,13 @@ import { Button } from "@chakra-ui/react";
 import React from "react";
 import { FormLabel } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import apiClient from "../../services/apiClient";
 interface FormData {
   title: string;
 }
 const Todos = () => {
+  const queryClient = useQueryClient();
   const pageSize = 10;
   // const [userId, setUserId] = useState<number>(0);
   const {
@@ -29,6 +34,17 @@ const Todos = () => {
     isFetchingNextPage,
   } = useTodos({ pageSize });
   const { register, handleSubmit } = useForm<FormData>();
+
+  const addTodo = useMutation<ToDosData, Error, ToDosData>({
+    mutationFn: (todo: ToDosData) =>
+      apiClient.post<ToDosData>("/todosxx", todo).then((res) => res.data),
+    onSuccess: (savedTodo) => {
+      queryClient.setQueryData<ToDosData[]>(["todos"], (todos) => [
+        savedTodo,
+        ...(todos || []),
+      ]);
+    },
+  });
 
   return (
     <div>
@@ -52,6 +68,21 @@ const Todos = () => {
         <option value="2">User 2</option>
         <option value="3">User 3</option>
       </Select>
+
+      {addTodo.error && (
+        <Box
+          background="tomato"
+          width="100%"
+          padding="4"
+          color="white"
+          textAlign={"center"}
+          fontSize={"3xl"}
+          marginBottom={3}
+          borderRadius={4}
+        >
+          {addTodo.error.message}
+        </Box>
+      )}
       <Container
         marginBottom={3}
         border={"2px solid teal"}
@@ -61,7 +92,17 @@ const Todos = () => {
         borderRadius={5}
         backgroundColor={"whitesmoke"}
       >
-        <form onSubmit={handleSubmit((data) => console.log(data))}>
+        <form
+          onSubmit={handleSubmit((data) => {
+            if (data.title)
+              addTodo.mutate({
+                id: 0,
+                title: data.title,
+                completed: false,
+                userId: 1,
+              });
+          })}
+        >
           <FormLabel
             color={"teal"}
             fontSize={"x-large"}

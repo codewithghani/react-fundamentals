@@ -4,9 +4,10 @@ match the `ToDosData` interface, which includes properties like `id`, `title`, a
 The response is stored in the `res` variable after the request is completed. */
 import apiClient from "../src/services/apiClient";
 import { useInfiniteQuery } from "@tanstack/react-query";
-interface ToDosData {
+export interface ToDosData {
   id: number;
   title: string;
+  userId: number;
   completed: boolean;
 }
 
