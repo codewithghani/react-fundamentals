@@ -23,12 +23,12 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import ExpenseFilter from "./components/ExpenseTracker/components/ExpenseFilter";
 // import ExpenseForm from "./components/ExpenseTracker/components/ExpenseForm";
-import Todos from "./components/todos/Todos";
+import Counter from "./components/Counter";
 // import categories from "./components/ExpenseTracker/categories";
 function App() {
   return (
     <div>
-      <Todos />
+      <Counter />
     </div>
   );
 }

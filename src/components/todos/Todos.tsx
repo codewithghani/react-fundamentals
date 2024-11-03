@@ -37,11 +37,12 @@ const Todos = () => {
   const addTodo = useMutation<ToDosData, Error, ToDosData>({
     mutationFn: (todo: ToDosData) =>
       apiClient.post<ToDosData>("/todos", todo).then((res) => res.data),
-    onSuccess: (savedTodo) => {
-      queryClient.setQueryData<ToDosData[]>(["todos"], (todos) => [
-        savedTodo,
-        ...(todos || []),
-      ]);
+
+    onSuccess: (newTodo: ToDosData) => {
+      queryClient.setQueryData<ToDosData[]>(["todos"], (old) => {
+        console.log(old);
+        return [newTodo, ...(old || [])];
+      });
     },
   });
 
