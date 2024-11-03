@@ -1,30 +1,11 @@
 import { Badge, Button, Flex, HStack, Text } from "@chakra-ui/react";
-import React, { useReducer } from "react";
-
-type updateAction = { type: "increment" | "decrement"; payload: number };
-type resetAction = { type: "reset" };
-type CounterAction = updateAction | resetAction;
-type CounterState = { count: number };
-
-export const CountStateContext = React.createContext({ state: 0 });
-
-const reducer = (state: CounterState, action: CounterAction): CounterState => {
-  switch (action.type) {
-    case "increment":
-      return { count: state.count + action.payload };
-    case "decrement":
-      return { count: state.count - action.payload };
-    case "reset":
-      return initialState;
-    default:
-      return state;
-  }
-};
+import { useReducer } from "react";
+import CounterReducer from "./reducers/CounterReducer";
 const initialState = {
   count: 0,
 };
 const Counter = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(CounterReducer, initialState);
 
   return (
     <>
