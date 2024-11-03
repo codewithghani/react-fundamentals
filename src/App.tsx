@@ -1,12 +1,12 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Counter from "./components/Counter";
+import TasksList from "./components/TasksList";
 
 function App() {
   return (
     <div>
-      <Counter />
+      <TasksList />
     </div>
   );
 }
