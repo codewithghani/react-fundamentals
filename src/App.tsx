@@ -1,12 +1,12 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import TasksList from "./components/TasksList";
+import WeatherWidget from "./components/WeatherWidget";
 
 function App() {
   return (
     <div>
-      <TasksList />
+      <WeatherWidget />
     </div>
   );
 }
