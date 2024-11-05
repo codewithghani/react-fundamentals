@@ -20,6 +20,7 @@ export interface Main {
   humidity: number;
   temp_min: number;
   temp_max: number;
+  feels_like: number;
 }
 
 interface Wind {
