@@ -41,6 +41,9 @@ const WeatherWidget = () => {
           size={"large"}
           src={`https://openweathermap.org/img/wn/${data?.weather[0].icon}@2x.png`}
         />
+        <Text color={"black"} fontSize={"xx-large"} textTransform={"uppercase"}>
+          {data?.weather[0].description}
+        </Text>
       </CardHeader>
       <CardBody>
         <Heading as={"h2"}>{`Temperature - ${data?.main.temp}`}&deg;</Heading>
